@@ -20,7 +20,7 @@
                 </div>
             </div>
             <table class="w-full">
-                <thead class="bg-gray-300 rounded-t-md ">
+                <thead class="bg-gray-300 rounded-t-md text-sm">
                     <th class="px-1 py-2 text-center">No.</th>
                     <th class="px-4 py-2 text-left">Nama</th>
                     <th class="px-4 py-2 text-left">NIP</th>
@@ -42,7 +42,7 @@
                             <td class="px-4 py-2 text-left">{{ $data->name }}</td>
                             <td class="px-4 py-2 text-left">{{ $data->nip }}</td>
 
-                            <td class="px-4 py-2 text-left">{{ $data->subject->name }}</td>
+                            <td class="px-4 py-2 text-left">{{ $data->subject->name ?? 'Kosong' }}</td>
                             <td class="px-4 py-2 text-left">{{ $data->created_at->format('H.i , d M Y') }}</td>
                             <td class="px-4 py-2">
                                 <div class="flex gap-2 justify-center">

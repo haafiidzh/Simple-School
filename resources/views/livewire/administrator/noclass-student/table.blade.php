@@ -1,41 +1,29 @@
 <div x-data="{ openFilter: false }">
     {{-- Session Flash Message --}}
-    {{-- <x-flash-message></x-flash-message> --}}
+    <x-flash-message></x-flash-message>
 
     <div class="w-full">
         <div class="w-full bg-slate-100 rounded-xl shadow-md">
             <div class="p-2">
-                <div class="p-1 flex justify-between items-center">
-                    <div class="flex gap-2">
-                        <div class="flex items-center gap-2">
-                            <i class="fas fa-search text-sm"></i>
-                            <input placeholder="Cari Kelas..." id="search" type="text" class="text-sm p-1 rounded-md"
-                                wire:model.lazy="search">
-                        </div>
-                        @if ($noclassStudent > 0)
-                        <a href="{{ route('administrator.student.custom') }}" class="relative cursor-pointer px-3 py-1 bg-white flex gap-2 items-center text-sm rounded-md shadow-sm hover:bg-slate-200 transition-all active:bg-slate-300">
-                            <i class="fa-solid fa-share text-sm"></i>
-                            <span class="font-semibold tracking-wider"> Tinjau Siswa Tanpa Kelas</span>
-
-                            <span class="absolute {{ $noclassStudent > 100 ? 'w-6 h-6' : 'w-5 h-5' }} -right-2 -top-2 rounded-full bg-red-600 flex justify-center items-center text-[10px] text-gray-200">{{ $noclassStudent }}</span>
-                        </a>
-                        @endif
+                <div class="p-1 flex justify-start items-center">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-search text-sm"></i>
+                        <input placeholder="Cari Siswa..." id="search" type="text" class="text-sm p-1 rounded-md"
+                            wire:model.lazy="search">
                     </div>
-                    <div @click="openFilter = true"
+                    {{-- <div @click="openFilter = true"
                         class="cursor-pointer px-3 py-1 bg-white flex gap-2 items-center text-sm rounded-md shadow-sm hover:bg-slate-200 transition-all active:bg-slate-300">
-                        <i class="fa-solid fa-filter text-sm"></i>
+                        <i class="fas fa-archive fa-sm"></i>
                         <span class="font-semibold tracking-wider"> Filter</span>
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>
             <table class="w-full">
                 <thead class="bg-gray-300 rounded-t-md text-sm">
                     <th class="px-1 py-2 text-center">No.</th>
-                    <th class="px-4 py-2 text-left">Kelas</th>
-                    <th class="px-4 py-2 text-left">Jumlah Siswa</th>
-                    <th class="px-4 py-2 text-left">Tingkat</th>
-                    <th class="px-4 py-2 text-left">Jurusan</th>
+                    <th class="px-4 py-2 text-left">Nama</th>
+                    <th class="px-4 py-2 text-left">NISN</th>
                     <th class="px-4 py-2 text-center">Action</th>
                 </thead>
                 <tbody class="text-sm">
@@ -50,19 +38,27 @@
                         <tr class="hover:bg-gray-200 {{ $loop->last ? '' : 'border-b border-gray-200' }}">
                             <td class="px-1 py-2 text-center">{{ $datas->firstItem() + $index }}</td>
                             <td class="px-4 py-2 text-left">{{ $data->name }}</td>
-                            <td class="px-4 py-2 text-left">{{ $data->students->count() }}</td>
-                            <td class="px-4 py-2 text-left">{{ $data->grade->grade }}</td>
+                            <td class="px-4 py-2 text-left">{{ $data->nis }}</td>
 
-                            <td class="px-4 py-2 text-left">{{ $data->major->name }}</td>
-                            <td class="px-4 py-2 text-left">
+                            <td class="px-4 py-2">
                                 <div class="flex gap-2 justify-center">
-                                    <a href="{{ route('administrator.student.index', ['id' => $data->id]) }}"
-                                        class="py-[0.15rem] px-[0.40rem] rounded-full border-2 border-slate-700 text-slate-700 hover:text-black hover:shadow-xl hover:bg-slate-300 hover:border-transparent transition-all active:bg-slate-400">
-                                        <i class="fa-solid fa-arrow-right text-xs"></i>
-                                    </a>
+                                    {{-- @can('detail-users') --}}
+                                            <a href="{{ route('administrator.student.custom.detail', ['id' => $data->id]) }}"
+                                                class="py-[0.15rem] px-[0.37rem] rounded-full border-2 border-slate-700 text-slate-700 hover:text-black hover:shadow-xl hover:bg-slate-300 hover:border-transparent transition-all active:bg-slate-400"><i
+                                                    class="fa-solid fa-eye text-xs "></i></a>
+                                        {{-- @endcan --}}
+                                        {{-- @can('edit-users') --}}
+                                            <a href="{{ route('administrator.student.custom.edit', ['id' => $data->id]) }}"
+                                                class="py-[0.15rem] px-[0.40rem] rounded-full border-2 border-slate-700 text-slate-700 hover:text-black hover:shadow-xl hover:bg-slate-300 hover:border-transparent transition-all active:bg-slate-400"><i
+                                                    class="fa-solid fa-eye-dropper text-xs"></i></a>
+                                        {{-- @endcan --}}
+                                        {{-- @can('delete-users') --}}
+                                            <a onclick="confirmDelete('{{ $data->id }}')"
+                                                class="cursor-pointer py-[0.15rem] px-[0.40rem] rounded-full border-2 border-slate-700 text-slate-700 hover:text-black hover:shadow-xl hover:bg-slate-300 hover:border-transparent transition-all active:bg-slate-400"><i
+                                                    class="fa-solid fa-trash text-xs"></i></a>
+                                        {{-- @endcan --}}
                                 </div>
                             </td>
-                            
                         </tr>
                     @empty
                         <tr>
@@ -77,7 +73,7 @@
         </div>
     </div>
 
-    <div x-cloak 
+    {{-- <div x-cloak 
         x-show="openFilter"
         @click.away="openFilter = false" 
         x-transition:enter="transition-transform transition-opacity duration-300"
@@ -97,11 +93,11 @@
             <div class="flex flex-col gap-5">
                 <div class="flex flex-col gap-1">
 
-                    <label class="font-semibold text-slate-600 text-sm px-2" for="major">Jurusan</label>
-                    <select class="text-sm px-2 py-2 w-full rounded-lg border-2 border-slate-600" name="major"
-                        id="major" wire:model.defer="major">
-                        <option value="">Semua Jurusan</option>
-                        @foreach ($majors as $item)
+                    <label class="font-semibold text-slate-600 text-sm px-2" for="subject">Mata Pelajaran</label>
+                    <select class="text-sm px-2 py-2 w-full rounded-lg border-2 border-slate-600" name="subject"
+                        id="subject" wire:model.defer="subject">
+                        <option value="">Semua Mata Pelajaran</option>
+                        @foreach ($subjects as $item)
                             <option value="{{ $item->name }}">{{ $item->name }}</option>
                         @endforeach
                     </select>
@@ -109,12 +105,12 @@
 
                 <div class="flex flex-col gap-1">
 
-                    <label class="font-semibold text-slate-600 text-sm px-2" for="grade">Tingkat</label>
-                    <select class="text-sm px-2 py-2 w-full rounded-lg border-2 border-slate-600" name="grade"
-                        id="grade" wire:model.defer="grade">
-                        <option value="">Semua Tingkat</option>
-                        @foreach ($grades as $item)
-                            <option value="{{ $item->grade }}">{{ $item->grade }}</option>
+                    <label class="font-semibold text-slate-600 text-sm px-2" for="classroom">Kelas</label>
+                    <select class="text-sm px-2 py-2 w-full rounded-lg border-2 border-slate-600" name="classroom"
+                        id="classroom" wire:model.defer="classroom">
+                        <option value="">Semua Kelas</option>
+                        @foreach ($classrooms as $item)
+                            <option value="{{ $item->name }}">{{ $item->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -140,7 +136,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 </div>
 

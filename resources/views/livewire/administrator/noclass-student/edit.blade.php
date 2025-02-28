@@ -1,5 +1,5 @@
 <div>
-    <form wire:submit.prevent="store">
+    <form wire:submit.prevent="update">
 
         <div class=" w-full">
             {{-- Role --}}
@@ -22,40 +22,34 @@
 
                 {{-- Form Role --}}
                 <div class="w-1/2 px-6 py-4 shadow-md rounded-3xl bg-white">
-                    <div class="mb-5">
-                        <label for="major" class="block ml-1 font-semibold text-sm text-slate-700 ">Jurusan</label>
-                        <select
-                            class="w-full mt-2 px-3 py-3 border border-black text-sm rounded-xl placeholder:text-slate-400 placeholder:tracking-[0.075rem]"
-                            name="major" placeholder="Jurusan" wire:model="major">
-                            <option value="">Pilih Jurusan</option>
-                            @foreach ($majors as $major)
-                                <option value="{{ $major->id }}">{{ $major->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('major')
-                            <div class="mx-1 mt-2 font-semibold text-sm text-red-700">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="mb-5">
-                        <label for="grade" class="block ml-1 font-semibold text-sm text-slate-700 ">Tingkat</label>
-                        <select
-                            class="w-full mt-2 px-3 py-3 border border-black text-sm rounded-xl placeholder:text-slate-400 placeholder:tracking-[0.075rem]"
-                            name="grade" placeholder="Tingkat" wire:model="grade">
-                            <option value="">Pilih Tingkat</option>
-                            @foreach ($grades as $grade)
-                                <option value="{{ $grade->id }}">{{ $grade->grade }}</option>
-                            @endforeach
-                        </select>
-                        @error('grade')
-                            <div class="mx-1 mt-2 font-semibold text-sm text-red-700">{{ $message }}</div>
-                        @enderror
-                    </div>
+                    {{-- <div class="mb-5">
+                        <label for="religion" class="block ml-1 font-semibold text-sm text-slate-700 ">Agama</label>
+                            <select
+                                class="w-full mt-2 px-3 py-3 border border-black text-sm rounded-xl placeholder:text-slate-400 placeholder:tracking-[0.075rem]"
+                                name="religion" placeholder="Kelas" wire:model="religion">
+                                <option value="">Pilih Agama</option>
+                                @foreach ($collection as $item)
+                                    
+                                @endforeach
+                                
+                            </select>
+                            @error('religion')
+                                <div class="mx-1 mt-2 font-semibold text-sm text-red-700">{{ $message }}</div>
+                            @enderror
+                    </div> --}}
+
+                    
                     <div class="mb-2">
-                        <label for="name" class="block ml-1 font-semibold text-sm text-slate-700 ">Nama Kelas</label>
-                        <input
+                        <label for="classroom" class="block ml-1 font-semibold text-sm text-slate-700 ">Kelas</label>
+                        <select
                             class="w-full mt-2 px-3 py-3 border border-black text-sm rounded-xl placeholder:text-slate-400 placeholder:tracking-[0.075rem]"
-                            type="text" name="name" placeholder="Nama Kelas" wire:model="name">
-                        @error('name')
+                            name="classroom" placeholder="Kelas" wire:model="classroom">
+                            <option value="">Pilih Kelas</option>
+                            @foreach ($classrooms as $classroom)
+                                <option value="{{ $classroom->id }}">{{ $classroom->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('classroom')
                             <div class="mx-1 mt-2 font-semibold text-sm text-red-700">{{ $message }}</div>
                         @enderror
                     </div>
@@ -78,3 +72,12 @@
         </div>
     </form>
 </div>
+
+@push('scripts')
+<script>
+    Livewire.on('back', () => {
+        window.history.back();
+    });
+</script>
+
+@endpush

@@ -6,7 +6,7 @@
 
 @section('content')
     <x-breadcrumb :items="[
-                ['title' => 'Siswa', 'route' => 'administrator.classroom'],
+                ['title' => 'Siswa', 'route' => 'administrator.student'],
                 ['title' => 'Edit'],
             ]" />
     <div class="mb-7 py-3 flex justify-between">

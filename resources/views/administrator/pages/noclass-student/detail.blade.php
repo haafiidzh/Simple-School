@@ -19,5 +19,5 @@
         {{-- @endcan --}}
     </div>
 
-    <livewire:administrator.student.detail :classroomId="$classroomId" :studentId="$studentId" />
+    <livewire:administrator.noclass-student.detail :id="$id"/>
 @endsection

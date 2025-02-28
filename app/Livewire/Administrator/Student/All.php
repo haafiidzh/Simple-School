@@ -5,6 +5,7 @@ namespace App\Livewire\Administrator\Student;
 use App\Models\Classroom;
 use App\Models\Grades;
 use App\Models\Majors;
+use App\Models\Student;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -18,6 +19,8 @@ class All extends Component
     public $search;
     public $grade;
     public $major;
+
+    public $noclassStudent;
 
     protected $queryString = [
         'search',
@@ -34,6 +37,7 @@ class All extends Component
     {
         $this->search;
 
+        $this->noclassStudent = Student::where('classroom_id', null)->count();
         $this->grades = Grades::orderBy('grade','asc')->get();
         $this->majors = Majors::orderBy('name','asc')->get();
     }

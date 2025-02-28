@@ -37,7 +37,7 @@ class Sidebar extends Component
                 'name' => 'Siswa',
                 'route' => route('administrator.student'),
                 'icon' => 'fa-solid fa-graduation-cap',
-                'active' => request()->is('administrator/siswa', 'administrator/siswa/*'),
+                'active' => request()->is('administrator/siswa', 'administrator/siswa/*', 'administrator/siswa1', 'administrator/siswa1/*'),
                 'is_separator' => false,
                 'childs' => [],
             ],
@@ -57,22 +57,22 @@ class Sidebar extends Component
                 'is_separator' => false,
                 'childs' => [],
             ],
-            // [
-            //     'name' => 'Lainnya',
-            //     'route' => null,
-            //     'icon' => '',
-            //     'active' => '',
-            //     'is_separator' => true,
-            //     'childs' => [],
-            // ],
-            // [
-            //     'name' => 'Mata Pelajaran',
-            //     'route' => route('administrator.classroom'),
-            //     'icon' => 'fa-solid fa-shapes',
-            //     'active' => request()->is('administrator/kelas', 'administrator/kelas/*'),
-            //     'is_separator' => false,
-            //     'childs' => [],
-            // ],
+            [
+                'name' => 'Lainnya',
+                'route' => null,
+                'icon' => '',
+                'active' => '',
+                'is_separator' => true,
+                'childs' => [],
+            ],
+            [
+                'name' => 'Mata Pelajaran',
+                'route' => route('administrator.subject'),
+                'icon' => 'fa-solid fa-book',
+                'active' => request()->is('administrator/mata-pelajaran', 'administrator/mata-pelajaran/*'),
+                'is_separator' => false,
+                'childs' => [],
+            ],
         ];
     }
 

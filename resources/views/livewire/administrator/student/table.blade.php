@@ -20,7 +20,7 @@
                 </div>
             </div>
             <table class="w-full">
-                <thead class="bg-gray-300 rounded-t-md ">
+                <thead class="bg-gray-300 rounded-t-md text-sm">
                     <th class="px-1 py-2 text-center">No.</th>
                     <th class="px-4 py-2 text-left">Nama</th>
                     <th class="px-4 py-2 text-left">NISN</th>
